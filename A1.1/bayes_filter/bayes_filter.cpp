@@ -80,41 +80,15 @@ std::vector<double> updateState(const std::vector<double>& previous_state, bool 
   std::vector<double> state(previous_state.size());
 
   // Motion update
-  if (!motion)
-    state = previous_state;
-
-  else
+  for (int i = 0; i < previous_state.size(); i++)
   {
-    //double noStepProbability;
-    double oneStepProbability;
-    double twoStepProbability;
-    int cell;
-    int previousCell;
-    int secondPrevousCell;
-
-    for (cell = 0; cell < previous_state.size(); cell++)
-    {
-      previousCell = cell - 1;
-      if (cell < 0)
-        cell += 20;
-
-      secondPrevousCell = cell - 2;
-      if (cell < 0)
-        cell+= 20;
-
-      //noStepProbability = previous_state[cell] * motionProbability(motion, cell, cell);
-      oneStepProbability = previous_state[previousCell] * motionProbability(motion, previousCell, cell);
-      twoStepProbability = previous_state[secondPrevousCell] * motionProbability(motion, secondPrevousCell, cell);
-
-      state[cell] = oneStepProbability + twoStepProbability;
-    }
+    for (int j = 0; j < previous_state.size(); j++)
+      state[i] += previous_state[j] * motionProbability(motion, j, i);
   }
-  
-  
+    
   // Observation update
-  int cell = 0;
-  for (cell; cell < previous_state.size(); cell++)
-    state[cell] *= observationProbability(observation, cell);
+  for (int i = 0; i < previous_state.size(); i++)
+    state[i] *= observationProbability(observation, i);
   
   // Normalise
   normaliseState(state);

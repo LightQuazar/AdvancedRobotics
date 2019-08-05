@@ -1,4 +1,4 @@
-# Install script for directory: /home/12551382/49274_19SPR/A1.1/bayes_filter
+# Install script for directory: /home/12551382/AdvancedRobotics/A1.1/bayes_filter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/12551382/49274_19SPR/A1.1/bayes_filter/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/12551382/AdvancedRobotics/A1.1/bayes_filter/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
