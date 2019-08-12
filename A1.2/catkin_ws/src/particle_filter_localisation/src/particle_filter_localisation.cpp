@@ -512,7 +512,7 @@ void ParticleFilter::odomCallback(const nav_msgs::Odometry& odom_msg)
     particle.y += (distance + randomNormal(motion_distance_noise_stddev_)) * std::sin(wrapAngle(particle.theta));
 
     // Add rotation and noise to particle
-    particle.theta += rotation + randomNOrmal(motion_rotation_noise_stddev_);
+    particle.theta += rotation + randomNormal(motion_rotation_noise_stddev_);
     // Wrap particle angle
     particle.theta = wrapAngle(particle.theta);
   }
@@ -591,7 +591,7 @@ void ParticleFilter::scanCallback(const sensor_msgs::LaserScan& scan_msg)
       for (auto& particle : particles_)
       {
         likelihood = (1 / std::sqrt(2*M_PI*std::pow(sensing_noise_stddev_,2))) * 
-                     std::exp(-1*std::pow(particle_range-scan_range,2) / (2*std::pow(sensing_noise_stddev,2)));
+                     std::exp(-1*std::pow(particle_range-scan_range,2) / (2*std::pow(sensing_noise_stddev_,2)));
       }
 
     }

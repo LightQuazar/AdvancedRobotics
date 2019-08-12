@@ -1,8 +1,8 @@
-# Install script for directory: /home/12551382/49274_19SPR/A1.2/catkin_ws/src/particle_filter_localisation
+# Install script for directory: /home/12551382/AdvancedRobotics/A1.2/catkin_ws/src/particle_filter_localisation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/12551382/49274_19SPR/A1.2/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/12551382/AdvancedRobotics/A1.2/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/12551382/49274_19SPR/A1.2/catkin_ws/build/particle_filter_localisation/catkin_generated/installspace/particle_filter_localisation.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/12551382/AdvancedRobotics/A1.2/catkin_ws/build/particle_filter_localisation/catkin_generated/installspace/particle_filter_localisation.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/particle_filter_localisation/cmake" TYPE FILE FILES
-    "/home/12551382/49274_19SPR/A1.2/catkin_ws/build/particle_filter_localisation/catkin_generated/installspace/particle_filter_localisationConfig.cmake"
-    "/home/12551382/49274_19SPR/A1.2/catkin_ws/build/particle_filter_localisation/catkin_generated/installspace/particle_filter_localisationConfig-version.cmake"
+    "/home/12551382/AdvancedRobotics/A1.2/catkin_ws/build/particle_filter_localisation/catkin_generated/installspace/particle_filter_localisationConfig.cmake"
+    "/home/12551382/AdvancedRobotics/A1.2/catkin_ws/build/particle_filter_localisation/catkin_generated/installspace/particle_filter_localisationConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/particle_filter_localisation" TYPE FILE FILES "/home/12551382/49274_19SPR/A1.2/catkin_ws/src/particle_filter_localisation/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/particle_filter_localisation" TYPE FILE FILES "/home/12551382/AdvancedRobotics/A1.2/catkin_ws/src/particle_filter_localisation/package.xml")
 endif()
 

@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/12551382/49274_19SPR/A1.2/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/12551382/AdvancedRobotics/A1.2/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
