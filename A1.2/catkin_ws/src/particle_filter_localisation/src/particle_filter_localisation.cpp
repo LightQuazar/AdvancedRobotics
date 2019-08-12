@@ -257,6 +257,18 @@ void ParticleFilter::initialiseParticles()
 
 
   // YOUR CODE HERE //
+  for (auto& particle : particles_)
+  {
+    // Assign random map position to particle
+    particle.x = randomUniform(map_x_min_, map_x_max_);
+    particle.y = randomUniform(map_y_min_, map_y_max_);
+
+    // Assign random angle to particle
+    particle.theta = randomUniform(0, 2*M_PI);
+
+    // Assign equal weight to particle
+    particle.weight = 1. / num_particles_;
+  }
 
 
   // Particles may be initialised in occupied space but the map has thin walls so it should be OK
@@ -275,8 +287,19 @@ void ParticleFilter::normaliseWeights()
 
 
   // YOUR CODE HERE //
+  double weightSum = 0.;
 
+  // Sum of all particle weights
+  for (auto particle : particles_)
+  {
+    weightSum += particle.weight;
+  }
 
+  // Divide each weight by sum of all weights, so sum of all weights equals 1
+  for (auto& particle : particles_)
+  {
+    particle.weight /= weightSum;
+  }
 }
 
 void ParticleFilter::estimatePose()
@@ -290,7 +313,20 @@ void ParticleFilter::estimatePose()
 
 
   // YOUR CODE HERE //
+  double weightedAnglex = 0., weightedAngley = 0.;
 
+  // Calculate weighted average position and angle of particles
+  for (auto particle : particles_)
+  {
+    estimated_pose_x += particle.weight * particle.x;
+    estimated_pose_y += particle.weight * particle.y;
+
+    weightedAnglex += particle.weight * std::cos(particle.theta);
+    weightedAngley += particle.weight * std::sin(particle.theta);
+  }
+
+  estimated_pose_theta = wrapAngle(std::atan2(weightedAngley,weightedAnglex));
+  
 
   // Set the estimated pose message
   estimated_pose_.position.x = estimated_pose_x;
@@ -330,6 +366,7 @@ void ParticleFilter::resampleParticles()
         particles_.push_back(*old_particles_it);
 
         // Add jitter to the particle
+        particles_.back().weight = 1./num_particles_;
         particles_.back().x += randomNormal(0.02);
         particles_.back().y += randomNormal(0.02);
         particles_.back().theta = wrapAngle(particles_.back().theta + randomNormal(M_PI / 30.));
@@ -468,7 +505,17 @@ void ParticleFilter::odomCallback(const nav_msgs::Odometry& odom_msg)
 
 
   // YOUR CODE HERE
+  for (auto& particle : particles_)
+  {
+    // Add motion and noise to particle in the direction of its angle
+    particle.x += (distance + randomNormal(motion_distance_noise_stddev_)) * std::cos(wrapAngle(particle.theta));
+    particle.y += (distance + randomNormal(motion_distance_noise_stddev_)) * std::sin(wrapAngle(particle.theta));
 
+    // Add rotation and noise to particle
+    particle.theta += rotation + randomNOrmal(motion_rotation_noise_stddev_);
+    // Wrap particle angle
+    particle.theta = wrapAngle(particle.theta);
+  }
 
   // Overwrite the previous odometry message
   prev_odom_msg_ = odom_msg;
@@ -541,7 +588,11 @@ void ParticleFilter::scanCallback(const sensor_msgs::LaserScan& scan_msg)
 
 
       // YOUR CODE HERE
-
+      for (auto& particle : particles_)
+      {
+        likelihood = (1 / std::sqrt(2*M_PI*std::pow(sensing_noise_stddev_,2))) * 
+                     std::exp(-1*std::pow(particle_range-scan_range,2) / (2*std::pow(sensing_noise_stddev,2)));
+      }
 
     }
 
