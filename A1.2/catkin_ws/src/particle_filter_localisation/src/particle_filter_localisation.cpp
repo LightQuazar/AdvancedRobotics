@@ -505,6 +505,9 @@ void ParticleFilter::odomCallback(const nav_msgs::Odometry& odom_msg)
 
 
   // YOUR CODE HERE
+  //double distanceNoise = randomNormal(motion_distance_noise_stddev_);
+  //double rotationNoise = randomNormal(motion_rotation_noise_stddev_);
+
   for (auto& particle : particles_)
   {
     // Add motion and noise to particle in the direction of its angle
