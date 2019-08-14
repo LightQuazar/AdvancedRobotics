@@ -1,0 +1,8 @@
+prefix=/home/12551382/AdvancedRobotics/A2/catkin_ws/devel
+
+Name: astar_path_planner
+Description: Description of astar_path_planner
+Version: 0.0.1
+Cflags: -I/home/12551382/AdvancedRobotics/A2/catkin_ws/devel/include
+Libs: -L/home/12551382/AdvancedRobotics/A2/catkin_ws/devel/lib 
+Requires: 

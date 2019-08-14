@@ -1,0 +1,2 @@
+astar_path_planner
+-DCATKIN_DEVEL_PREFIX=/home/12551382/AdvancedRobotics/A2/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/12551382/AdvancedRobotics/A2/catkin_ws/install -G Unix Makefiles
