@@ -143,6 +143,59 @@ std::vector<AdjacentCell> OccupancyGrid::getAdjacentCells(int id, bool diagonal_
 
   // YOUR CODE HERE
 
+  // Local variables
+  AdjacentCell adjTemp;    // Temporary holder of an adjacent cell
+  GridPosition adjTempGP;  // Grid position of adjTemp
+
+  // If manhattan movement
+  if (!diagonal_movement)
+  {
+    for (int y = grid_position.y - 1; y <= grid_position.y + 1; y++)
+    {
+      for (int x = grid_position.x - 1; x <= grid_position.x + 1; x++)
+      {
+        if ((x == grid_position.x) != (y == grid_position.y))
+        {
+          adjTempGP.x = x;
+          adjTempGP.y = y;
+
+          if (!isOccupied(adjTempGP) && !isOutOfBounds(adjTempGP))
+          {
+            adjTemp.id = getCellId(adjTempGP);
+            adjTemp.cost = map_.info.resolution;
+            adjTemp.world_position = getWorldPosition(adjTempGP);
+            adjacent_cells.push_back(adjTemp);
+          }
+        }
+      }
+    }
+  }
+
+  // If diagonal movement
+  else
+  {
+    for (int y = grid_position.y - 1; y <= grid_position.y + 1; y++)
+    {
+      for (int x = grid_position.x - 1; x <= grid_position.x + 1; x++)
+      {
+        if (!(x == grid_position.x && y == grid_position.y))
+        {
+          adjTempGP.x = x;
+          adjTempGP.y = y;
+
+          if (!isOccupied(adjTempGP) && !isOutOfBounds(adjTempGP))
+          {
+            adjTemp.id = getCellId(adjTempGP);
+            adjTemp.cost = std::sqrt(std::pow((grid_position.x - adjTempGP.x) * map_.info.resolution, 2) + 
+                                     std::pow((grid_position.y - adjTempGP.y) * map_.info.resolution, 2));
+            adjTemp.world_position = getWorldPosition(adjTempGP);
+            adjacent_cells.push_back(adjTemp);
+          }
+        }
+      }
+    }
+  }
+
   return adjacent_cells;
 }
 

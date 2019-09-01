@@ -21,7 +21,9 @@ double heuristicCost(astar_path_planner::WorldPosition a, astar_path_planner::Wo
 {
   // Return a heuristic cost between two world positions
 
-  return 0.;  // YOUR CODE HERE
+  double hCost = std::sqrt(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2));
+
+  return hCost;  // YOUR CODE HERE
 }
 
 void waitForKey()
@@ -218,6 +220,52 @@ bool PathPlanner::planPath(astar_path_planner::PlanPath::Request& req, astar_pat
     //     If the adjacent cell is not on the closed or open sets, add it to the open set
 
     // YOUR CODE HERE
+    
+    // Local variables
+    Node currentNode;
+    Node adjNode;
+    std::vector<AdjacentCell> adjCells;
+
+    // Move lowest cost node from open set to closed set
+    currentNode = open_set.pop(req.heuristic_cost_weight);
+    closed_set.push(currentNode);
+
+    // Exit loop if lowest cost node is goal node
+    if (currentNode == goal_cell)
+    {
+      goal_found = true;
+      break;
+    }
+
+    // Get cells adjacent to lowest cost node
+    adjCells = occupancy_grid_.getAdjacentCells(currentNode.id, req.diagonal_movement);
+
+    for (auto adjCell : adjCells)
+    {
+      // Create a new node for adjacent cell
+      adjNode.id = adjCell.id;
+      adjNode.parent_id = currentNode.id;
+      adjNode.cost = adjCell.cost + currentNode.cost;
+      adjNode.heuristic_cost = heuristicCost(adjCell.world_position, goal_position_);
+
+      // If new node is already on closed set, do nothing
+      if (closed_set.contains(adjNode.id))
+      {
+        continue;
+      }
+
+      // If new node is already on open set, update
+      else if (open_set.contains(adjNode.id))
+      {
+        open_set.update(adjNode);
+      }
+
+      // If new node is not already on either set, add it to open set
+      else
+      {
+        open_set.push(adjNode);
+      }
+    }
 
     // YOU DON'T NEED TO MODIFY ANYTHING AFTER THIS LINE
 

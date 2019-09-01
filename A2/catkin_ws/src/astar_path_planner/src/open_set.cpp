@@ -20,6 +20,22 @@ Node OpenSet::pop(double heuristic_cost_weight)
 
   // YOUR CODE HERE
 
+  // Local variables
+  double lowestCost = nodes_[index].cost + (nodes_[index].heuristic_cost * heuristic_cost_weight);
+  double newCost;
+
+  // Find the index of the lowest cost node in "nodes_"
+  for (int i = 0; i < nodes_.size(); i++)
+  {
+    newCost = nodes_[i].cost + (nodes_[i].heuristic_cost * heuristic_cost_weight);
+    
+    if (newCost < lowestCost)
+    {
+      lowestCost = newCost;
+      index = i;
+    }
+  }
+
   // YOU DON'T NEED TO MODIFY ANYTHING AFTER THIS LINE
 
   // Copy the node
@@ -56,6 +72,14 @@ void OpenSet::update(const Node& n)
 
   // YOUR CODE HERE
 
+  for (auto& currentNode : nodes_)
+  {
+    if ((n.id == currentNode.id) && (n.cost < currentNode.cost))
+    {
+      currentNode = n;
+      break;
+    }
+  }
 }
 
 bool OpenSet::empty()

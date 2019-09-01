@@ -39,6 +39,29 @@ std::vector<int> ClosedSet::getPath(int start_id, int goal_id)
 
   // YOUR CODE HERE
 
+  // Local variables
+  int current_id = goal_id;  // Start at goal node
+
+  // Move towards start node, adding each node on the way to "path"
+  while (current_id != start_id)
+  {
+    for (auto n : nodes_)
+    {
+      if (current_id == n.id)
+      {
+        path.push_back(current_id);
+        current_id = n.parent_id;
+        break;
+      }
+    }
+  }
+
+  // Add start node to "path"
+  path.push_back(current_id);
+
+  // Reverse path
+  std::reverse(path.begin(), path.end());
+
   return path;
 }
 
