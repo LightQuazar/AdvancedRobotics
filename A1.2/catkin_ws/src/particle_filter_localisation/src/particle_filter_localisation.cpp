@@ -515,10 +515,10 @@ void ParticleFilter::odomCallback(const nav_msgs::Odometry& odom_msg)
 
     // Add motion and noise to particle in the direction of its angle
     particle.x += (distance + distanceNoise) * std::cos(wrapAngle(particle.theta));
-    particle.y += (distance + rotationNoise) * std::sin(wrapAngle(particle.theta));
+    particle.y += (distance + distanceNoise) * std::sin(wrapAngle(particle.theta));
 
     // Add rotation and noise to particle
-    particle.theta += rotation + randomNormal(motion_rotation_noise_stddev_);
+    particle.theta += rotation + rotationNoise;
     // Wrap particle angle
     particle.theta = wrapAngle(particle.theta);
   }
