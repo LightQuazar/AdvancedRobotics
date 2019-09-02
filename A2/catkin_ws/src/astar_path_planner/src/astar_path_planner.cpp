@@ -231,7 +231,7 @@ bool PathPlanner::planPath(astar_path_planner::PlanPath::Request& req, astar_pat
     closed_set.push(currentNode);
 
     // Exit loop if lowest cost node is goal node
-    if (currentNode == goal_cell)
+    if (currentNode.id == goal_cell.id)
     {
       goal_found = true;
       break;
